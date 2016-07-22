@@ -1,0 +1,15 @@
+<launch>
+	<rosparam file="$(find testpack)/config/controller.yaml" command="load"/>
+	
+	<param name="robot_description" textfile="$(find testpack)/yumi.urdf" />
+	
+	<include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+	
+	<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+args="-param robot_description -urdf -model yumi1" />
+
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" args="arm_controller"/>
+	
+	<node name="robot_state_publisher" pkg="robot_state_publisher"
+type="robot_state_publisher"/>
+</launch>
